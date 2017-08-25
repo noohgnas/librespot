@@ -1,0 +1,16 @@
+[Unit]
+Description=librespot service
+After=network-online.target
+
+[Service]
+Type=idle
+User=root
+EnvironmentFile=-/etc/sysconfig/librespot
+ExecStart=/usr/bin/librespot --username $USERNAME --password $PASSWORD --name $DEVICENAME --bitrate $BITRATE --backend alsa --device $OUTPUT > /dev/null 2>&1
+Restart=always
+RestartSec=10
+StartLimitInterval=30
+StartLimitBurst=20
+
+[Install]
+WantedBy=multi-user.target
